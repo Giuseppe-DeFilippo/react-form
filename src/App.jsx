@@ -1,29 +1,34 @@
-// Creare un semplice form con un campo input per il titolo di un articolo del blog.
-// Al submit del form, mostrare la lista degli articoli inseriti, con la possibilità di cancellare ciascun articolo utilizzando un'icona.
-
-//import
+import React, { useState } from "react";
 import FormComponent from "./components/FormComponents";
 import CardComponents from "./components/CardComponents";
 
 function App() {
-  //parte logica
-  const titoli = [];
+  const [titoli, setTitoli] = useState([]);
 
-  //parte html
   return (
-    <>
+    <div>
       <header>
-        <h1>titolo</h1>
+        <h1>Lista Articoli</h1>
       </header>
-      <main><p><FormComponent /></p>
-        {titoli.map((titolo, index) => (
-          <p key={index}>{titolo}</p>
-        ))}
-      </main>
-      <footer></footer>
-    </>
-  )
+      <main>
+        {/* FormComponent gestisce l'aggiunta */}
+        <FormComponent titoli={titoli} setTitoli={setTitoli} />
 
+        {/* Mostra la lista dei titoli */}
+        <div className="card-list">
+          {titoli.map((titolo, index) => (
+            <CardComponents
+              key={index}
+              index={index}
+              titolo={titolo}
+              titoli={titoli}
+              setTitoli={setTitoli}
+            />
+          ))}
+        </div>
+      </main>
+    </div>
+  );
 }
 
 export default App;
